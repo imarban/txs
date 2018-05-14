@@ -52,6 +52,7 @@ public class FileSystemTransactionRepository implements TransactionRepository {
 		    return new HashMap<>();
         } catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			System.exit(-1);
 		}
 		return new HashMap<>();
 	}
@@ -62,6 +63,7 @@ public class FileSystemTransactionRepository implements TransactionRepository {
             objectOutputStream.writeObject(transactions);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
     }
 }
