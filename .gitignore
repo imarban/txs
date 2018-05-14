@@ -29,5 +29,8 @@ hs_err_pid*
 .project
 .classpath
 .settings/
+*.iml
+.vscode/
 
-#Serialized .ser
+# Serialized
+*.ser
