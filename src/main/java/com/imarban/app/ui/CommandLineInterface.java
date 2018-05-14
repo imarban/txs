@@ -46,7 +46,7 @@ public class CommandLineInterface implements TransactionUserInterface {
     @Override
     public String sum(Integer userId) {
         Double total = transactionRepository.sum(userId);
-        return String.format("%.2f", total);
+        return String.format("{ user_id: %d, sum: %.2f }", userId, total);
     }
 
 
