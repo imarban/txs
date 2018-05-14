@@ -38,7 +38,10 @@ public class FileSystemTransactionRepository implements TransactionRepository {
 	}
 
 	public Double sum(Integer userId) {
-		return null;
+        Map<String, Transaction> userTransactions = loadTransactions(userId);
+        ArrayList<Transaction> transactions = new ArrayList<>(userTransactions.values());
+
+        return transactions.stream().mapToDouble(Transaction::getAmount).sum();
 	}
 
 	private Map<String, Transaction> loadTransactions(Integer userId) {
