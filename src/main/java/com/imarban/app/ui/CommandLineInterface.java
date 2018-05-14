@@ -21,9 +21,9 @@ public class CommandLineInterface implements TransactionUserInterface {
 
     @Override
     public String add(Integer userId, String jsonTransaction) {
-        Transaction transaction = parseJsonTransaction(jsonTransaction);
-        transactionRepository.add(transaction);
-        return parseTransactionJson(transaction);
+        Transaction transactionToAdd = parseJsonTransaction(jsonTransaction);
+        Transaction transactionAdded = transactionRepository.add(transactionToAdd);
+        return parseTransactionJson(transactionAdded);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CommandLineInterface implements TransactionUserInterface {
     @Override
     public String sum(Integer userId) {
         Double total = transactionRepository.sum(userId);
-        return String.format("{ user_id: %d, sum: %.2f }", userId, total);
+        return String.format("{ \"user_id\": %d, \"sum\": %.2f }", userId, total);
     }
 
 

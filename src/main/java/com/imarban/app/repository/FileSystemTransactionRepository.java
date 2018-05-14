@@ -44,7 +44,7 @@ public class FileSystemTransactionRepository implements TransactionRepository {
         return transactions.stream().mapToDouble(Transaction::getAmount).sum();
 	}
 
-	private Map<String, Transaction> loadTransactions(Integer userId) {
+	public Map<String, Transaction> loadTransactions(Integer userId) {
 		try (FileInputStream streamIn = new FileInputStream(String.format("%d.ser", userId))) {
 			ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
 			return (HashMap<String, Transaction>) objectinputstream.readObject();
@@ -57,7 +57,7 @@ public class FileSystemTransactionRepository implements TransactionRepository {
 		return new HashMap<>();
 	}
 
-	private void saveTransactions(Map<String, Transaction> transactions, Integer userId) {
+    public void saveTransactions(Map<String, Transaction> transactions, Integer userId) {
         try (FileOutputStream streamOut = new FileOutputStream(String.format("%d.ser", userId))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(streamOut);
             objectOutputStream.writeObject(transactions);

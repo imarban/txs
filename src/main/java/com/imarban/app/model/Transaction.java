@@ -27,6 +27,14 @@ public class Transaction implements Serializable, Comparable<Transaction> {
         id = UUID.randomUUID();
     }
 
+    public Transaction(Double amount, String description, LocalDate date, Integer userId) {
+        this.id = UUID.randomUUID();
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.userId = userId;
+    }
+
     public UUID getId() {
         return this.id;
     }
