@@ -5,7 +5,7 @@ import com.imarban.app.model.Transaction;
 
 public interface TransactionRepository {
 
-    void add(Transaction transaction);
+    Transaction add(Transaction transaction);
     Transaction show(String transactionId, Integer userId);
     List<Transaction> list(Integer userId);
     Double sum(Integer userId);

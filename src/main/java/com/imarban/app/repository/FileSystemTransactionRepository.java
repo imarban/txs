@@ -6,26 +6,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.imarban.app.model.Transaction;
 
 public class FileSystemTransactionRepository implements TransactionRepository {
 
-	public void add(Transaction transaction) {
-        List<Transaction> userTransactions = loadTransactions(transaction.getUserId());
-        if (userTransactions == null) {
-            userTransactions = new ArrayList<>();
-        }
-        userTransactions.add(transaction);
-        saveTransactions(userTransactions);
+	public Transaction add(Transaction transaction) {
+        Map<String, Transaction> userTransactions = loadTransactions(transaction.getUserId());
+        userTransactions.put(transaction.getId().toString(), transaction);
+        saveTransactions(userTransactions, transaction.getUserId());
+        return transaction;
 
 	}
 
 	public Transaction show(String transactionId, Integer userId) {
-        List<Transaction> userTransactions = loadTransactions(userId);
-        return userTransactions.get(0);
+        Map<String, Transaction> userTransactions = loadTransactions(userId);
+        return userTransactions.get(transactionId);
 	}
 
 	public List<Transaction> list(Integer userId) {
@@ -36,20 +35,19 @@ public class FileSystemTransactionRepository implements TransactionRepository {
 		return null;
 	}
 
-	private List<Transaction> loadTransactions(Integer userId) {
+	private Map<String, Transaction> loadTransactions(Integer userId) {
 		try (FileInputStream streamIn = new FileInputStream(String.format("%d.ser", userId))) {
 			ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
-			return (List<Transaction>) objectinputstream.readObject();
+			return (HashMap<String, Transaction>) objectinputstream.readObject();
 		} catch (FileNotFoundException fne) {
-		    return new ArrayList<>();
+		    return new HashMap<>();
         } catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<>();
+		return new HashMap<>();
 	}
 
-	private void saveTransactions(List<Transaction> transactions) {
-	    Integer userId = transactions.get(0).getUserId();
+	private void saveTransactions(Map<String, Transaction> transactions, Integer userId) {
         try (FileOutputStream streamOut = new FileOutputStream(String.format("%d.ser", userId))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(streamOut);
             objectOutputStream.writeObject(transactions);
