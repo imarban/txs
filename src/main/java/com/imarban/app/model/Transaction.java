@@ -2,13 +2,16 @@ package com.imarban.app.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@JsonPropertyOrder({ "transaction_id", "amount", "description", "date", "user_id" })
 public class Transaction implements Serializable, Comparable<Transaction> {
 
+    @JsonProperty("transaction_id")
     private UUID id;
 
     private Double amount;
