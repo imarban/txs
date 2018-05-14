@@ -8,6 +8,8 @@ import com.imarban.app.model.Transaction;
 import com.imarban.app.repository.TransactionRepository;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandLineInterface implements TransactionUserInterface {
 
@@ -18,25 +20,33 @@ public class CommandLineInterface implements TransactionUserInterface {
     }
 
     @Override
-    public void add(Integer userId, String jsonTransaction) {
+    public String add(Integer userId, String jsonTransaction) {
         Transaction transaction = parseJsonTransaction(jsonTransaction);
         transactionRepository.add(transaction);
+        return parseTransactionJson(transaction);
     }
 
     @Override
     public String show(Integer userId, String transactionId) {
         Transaction transaction = transactionRepository.show(transactionId, userId);
+        if (transaction == null) {
+            return "Transaction Not Found";
+        }
         return parseTransactionJson(transaction);
     }
 
     @Override
     public String list(Integer userId) {
-        return null;
+        List<Transaction> transactions = transactionRepository.list(userId);
+        return "[ \n" + transactions.stream()
+                .map(this::parseTransactionJson)
+                .collect( Collectors.joining(",\n")) + " \n]";
     }
 
     @Override
     public String sum(Integer userId) {
-        return null;
+        Double total = transactionRepository.sum(userId);
+        return String.format("%.2f", total);
     }
 
 

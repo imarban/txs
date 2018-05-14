@@ -1,7 +1,7 @@
 package com.imarban.app.ui;
 
 public interface TransactionUserInterface {
-    void add(Integer userId, String transaction);
+    String add(Integer userId, String transaction);
 
     String show(Integer userId, String transactionId);
 
