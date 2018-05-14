@@ -35,7 +35,7 @@ Run `java -jar target/app-1.jar <userId> sum`. It will calculate the sum of all 
 
 Run `java -jar target/app-1.jar <userId> list`. It will list all the transactions  associated with the given userId
 
-#### Technologies used
+### Technologies used
 
 This application is using the following technologies/libraries
 
@@ -47,7 +47,7 @@ This application is using the following technologies/libraries
 - Hamcrest
 - Maven
 
-#### How is this built?
+### How is this built?
 
 The application is storing the transactions you add in the file system. 
 It is mandatory to give write permissions over the running directory, otherwise the application will fail.
