@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Transaction implements Serializable {
+public class Transaction implements Serializable, Comparable<Transaction> {
 
     private UUID id;
 
@@ -42,5 +42,10 @@ public class Transaction implements Serializable {
 
     public Integer getUserId(){
         return this.userId;
+    }
+
+    @Override
+    public int compareTo(Transaction transaction) {
+        return this.date.compareTo(transaction.date);
     }
 }
