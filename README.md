@@ -1,5 +1,5 @@
 # txs
-This applications allows the user to handle their financial transactions. 
+This applications allows the user to handle their financial transactions. (This was done as part of the On-Site project for a Job interview)
 
 ### How to run
 
